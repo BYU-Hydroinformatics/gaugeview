@@ -1,0 +1,99 @@
+{% extends "gaugeview/base.html" %}
+{% load tethys_gizmos %}
+{% load staticfiles %}
+
+{% block app_content_wrapper_override %}
+<!-- Modal  -->
+<div class="modal fade" id="welcome-popup" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <center><h4 class="modal-title">Gauge Viewer + WaterML Help Guide</h4></center>
+      </div>
+      <div class="modal-body">
+        <div id="welcome-info">
+          <div class="line">
+            <p id="desc">This application helps find and download available information from USGS stream gauges and
+                AHPS forecasts. Follow the steps below to find available data.</p>
+          </div>
+          <ol>
+          <li class="modalList">Zoom to location</li>
+          <span class="sub">USGS Gauges are present in all states, except Alaska, and Puerto Rico. <br>
+              AHPS forecasts are available in every state and Puerto Rico. <br>
+              You can zoom to an area using the search box on the left. </span>
+          <li class="modalList">Select gauge of interest</li>
+          <span class="sub">USGS gauges are blue, AHPS forecast points are red. Layer display can be toggled in the
+              left side-bar.</span>
+          <div class="modalNote">
+            <span>
+              Tip: If no gauges are listed after selecting them then make sure your <em>browser</em> is not zoomed out
+                and you are directly over the gauge when selecting it.<br>By default only recent data will be displayed,
+                not all gauges have recent data. If no data is available try adjusting the dates and reload the gauge page.
+            </span>
+          </div>
+          <li class="modalList">Select "View Data" for gauge of interest</li>
+          <span class="sub">"View Data" opens information regarding the gauge or forecast point in a new tab.<br>
+              "Visit Website" leaves the app to the USGS or NOAA website with further information regarding the gauge,
+          including date ranges of available data.</span>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div id="byu-logo-container">
+          <span><i>Developed at the BYU Hydroinformatics Lab</i></span>
+          <img src="{% static 'gaugeview/images/byu-logo.png' %}"/>
+        </div>
+        <button type="button" class="btn btn-default" id="close-popup" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+{{block.super}}
+{% endblock %}
+
+{% block app_content %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPgvDUpbEwcbg9C0cRTfDtDa-Vj4WBwI0" ></script>
+    <script src="{% static 'gaugeview/css/ol.css' %}" type="text/css"></script>
+
+    <!-- This extra bit of style defines the size of the "map" div tag area that shows up later -->
+    <style>
+      .map {
+        height: 600px;
+        width: 100%;
+      }
+    </style>
+
+  	<!-- Show some information to the user using basic HTML -->
+    <!--<h2>HydroCatalog</h2>-->
+
+    <!-- Specify a div tag area that will hold the map itself. -->
+    <!--This is where the map location is defined. It is referenced from the main.js file-->
+    <div id="map" class="map">
+        <!-- We need a piece of real estate for the pop up bubble, within the map space. -->
+    </div>
+    <div id="popup" class="popup">
+
+    </div>
+    <!--The main.js file contains the JavaScript to build the map and do crap with it-->
+{% endblock %}
+
+{% block app_navigation_items %}
+
+<div align = "center">
+  <!--<li class="title">Layers to Display</li>-->
+    <p style="font-size:200%;">Layers to Display</p>
+    <input type="checkbox" onClick="AHPS_Gauges.setVisible(!AHPS_Gauges.getVisible());"
+             id="ch_AHPS_Gauges" name="AHPS_Gauges" checked>AHPS Gauges (Red)
+    <br>
+    <input type="checkbox" onClick="USGS_Gauges.setVisible(!USGS_Gauges.getVisible());"
+             id="ch_USGS_Gauges" name="USGS_Gauges" checked>USGS Gauges (Blue)
+    <br><br><br>
+  <input type="text" class="form-control" placeholder="Enter Area of Interest" id="location_input" name="location_input"></li><br/>
+  <input type="button" class="btn btn-primary" id="location_search" name="location_search" onClick="run_geocoder();" value="Click to zoom to area">
+    <br><br>
+    <button id="instructions" type="button" class="btn btn-default" data-toggle="modal" data-target="#welcome-popup" >
+    Instructions</button>
+</div>
+{% endblock %}

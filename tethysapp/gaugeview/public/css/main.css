@@ -1,0 +1,55 @@
+/*Puts space between left and right edge of words and border for popup*/
+td {
+    font-size:65%;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+th {
+    font-size:65%;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.input-group {
+    width: 100%;
+}
+
+#byu-logo-container {
+    float: left;
+    position: absolute;
+    bottom: 8px;
+}
+#byu-logo-container img {
+    float: left;
+    height: 50px;
+    width: 50px;
+}
+#byu-logo-container span {
+    position: relative;
+    top: 25px;
+    margin-left: 10px;
+}
+#desc {
+    color: black;
+    font-size:12pt;
+    margin-left:10px;
+}
+.sub {
+    font-size:12pt;
+}
+.modalNote {
+    color: gray;
+    margin-left:10px;
+}
+.modalList {
+    margin:10px;
+    font-size:16pt;
+    font-variant: small-caps;
+}
+
+#Forecast_Failed {
+    font-size:20pt;
+    color: red;
+    font-weight: bold;
+}
