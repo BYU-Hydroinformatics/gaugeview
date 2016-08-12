@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $("#welcome-popup").modal("show");
 });
-
+var comid;
 function dataCall(inputURL) {
     var result = null;
         $.ajax({
@@ -14,6 +14,8 @@ function dataCall(inputURL) {
         return result;
 }
 
+//Map variables
+var selected_streams_layer;
 
 //Here we are declaring the projection object for Web Mercator
 var projection = ol.proj.get('EPSG:3857');
@@ -57,6 +59,42 @@ var baseLayer = new ol.layer.Tile({
 //        },
 //        crossOrigin: 'Anonymous'
 //        });
+
+// Highlight selected stream
+    var createLineStyleFunction = function() {
+        return function(feature, resolution) {
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: '#ffff00',
+                    width: 2
+                }),
+////                This is another way to display the COMID
+//                text: new ol.style.Text({
+//                    textAlign: 'center',
+//                    textBaseline: 'middle',
+//                    font: 'bold 12px Verdana',
+//                    text: getText(feature, resolution),
+//                    fill: new ol.style.Fill({color: '#cc00cc'}),
+//                    stroke: new ol.style.Stroke({color: 'black', width: 0.5})
+//                })
+            });
+            return [style];
+        };
+    };
+
+    var getText = function(feature, resolution) {
+        var maxResolution = 100;
+        var text = feature.get('name');
+        if (resolution > maxResolution) {
+            text = '';
+        }
+        return text;
+    };
+
+    selected_streams_layer = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        style: createLineStyleFunction()
+    });
 
 //Add all stream reaches to map, only viewable when zoomed in
 var serviceUrl = 'https://watersgeo.epa.gov/arcgis/rest/services/NHDPlus_NP21/NHDSnapshot_NP21_Labeled/MapServer/0';
@@ -134,7 +172,7 @@ var USGS_Gauges = new ol.layer.Tile({
 //USGS_Gauges.setOpacity(0.7);
 
 sources = [AHPS_Source,USGS_Source];
-layers = [baseLayer,AHPS_Gauges, USGS_Gauges, all_streams_layer];
+layers = [baseLayer,AHPS_Gauges, USGS_Gauges, all_streams_layer, selected_streams_layer];
 
 //Establish the view area. Note the reprojection from lat long (EPSG:4326) to Web Mercator (EPSG:3857)
 var view = new ol.View({
@@ -226,6 +264,97 @@ var ddChars = dd.split('');
 
 var datestringnow = yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
 
+function run_point_indexing_service(lonlat){
+    var inputLon = lonlat[0];
+    var inputLat = lonlat[1];
+    var wktval = "POINT(" + inputLon + " " + inputLat + ")";
+    var options = {
+        "success" : "pis_success",
+        "error"   : "pis_error",
+        "timeout" : 60 * 1000
+    };
+var data = {
+        "pGeometry": wktval,
+        "pGeometryMod": "WKT,SRSNAME=urn:ogc:def:crs:OGC::CRS84",
+        "pPointIndexingMethod": "DISTANCE",
+        "pPointIndexingMaxDist": 10,
+        "pOutputPathFlag": "TRUE",
+        "pReturnFlowlineGeomFlag": "FULL",
+        "optOutCS": "SRSNAME=urn:ogc:def:crs:OGC::CRS84",
+        "optOutPrettyPrint": 0,
+        "optClientRef": "CodePen"
+    };
+    WATERS.Services.PointIndexingService(data, options);
+}
+
+// Stream network
+function pis_success(result) {
+    var srv_rez = result.output;
+    if (srv_rez == null) {
+        if ( result.status.status_message !== null ) {
+            report_failed_search(result.status.status_message);
+        } else {
+            report_failed_search("No reach located near your click point.");
+        }
+        return;
+    }
+
+    var srv_fl = result.output.ary_flowlines;
+    var newLon = srv_fl[0].shape.coordinates[Math.floor(srv_fl[0].shape.coordinates.length/2)][0];
+    var newLat = srv_fl[0].shape.coordinates[Math.floor(srv_fl[0].shape.coordinates.length/2)][1];
+    comid = srv_fl[0].comid.toString();
+    $('#longInput').val(newLon);
+    $('#latInput').val(newLat);
+    $('#comidInput').val(comid);
+
+    //add the selected flow line to the map
+    for (var i in srv_fl) {
+        selected_streams_layer.getSource().clear()
+        selected_streams_layer.getSource().addFeature(geojson2feature(srv_fl[i].shape));
+    }
+}
+
+function pis_success2(result) {
+    var srv_fl = result.output.ary_flowlines;
+    var newLon = srv_fl[0].shape.coordinates[Math.floor(srv_fl[0].shape.coordinates.length/2)][0];
+    var newLat = srv_fl[0].shape.coordinates[Math.floor(srv_fl[0].shape.coordinates.length/2)][1];
+    comid = srv_fl[0].comid.toString();
+
+    //add the selected flow line to the map
+    for (var i in srv_fl) {
+        selected_streams_layer.getSource().clear()
+        selected_streams_layer.getSource().addFeature(geojson2feature(srv_fl[i].shape));
+    }
+}
+
+function pis_error(XMLHttpRequest, textStatus, errorThrown) {
+    report_failed_search(textStatus);
+}
+
+function geojson2feature(myGeoJSON) {
+    //Convert GeoJSON object into an OpenLayers 3 feature.
+    //Also force jquery coordinates into real js Array if needed
+    var geojsonformatter = new ol.format.GeoJSON;
+    if (myGeoJSON.coordinates instanceof Array == false) {
+        myGeoJSON.coordinates = WATERS.Utilities.RepairArray(myGeoJSON.coordinates,0);
+    }
+    var myGeometry = geojsonformatter.readGeometry(myGeoJSON);
+    myGeometry.transform('EPSG:4326','EPSG:3857');
+    //name the feature according to COMID
+    var newFeatureName = 'COMID: ' + comid;
+
+    return new ol.Feature({
+        geometry: myGeometry,
+        name: newFeatureName
+    });
+}
+
+function clearErrorSelection() {
+    var numFeatures = selected_streams_layer.getSource().getFeatures().length;
+    var lastFeature = selected_streams_layer.getSource().getFeatures()[numFeatures-1];
+    selected_streams_layer.getSource().removeFeature(lastFeature);
+}
+
 //Find the gaugeid and waterbody when using the generate new graph button
 $(function () {
     $('#gaugeid').val(window.location.search.split('&')[0].split('=')[1])
@@ -238,7 +367,8 @@ map.on('singleclick', function(evt) {
 
             var clickCoord = evt.coordinate;
             popup.setPosition(clickCoord);
-
+            lonlat = ol.proj.transform(clickCoord, 'EPSG:3857', 'EPSG:4326');
+            run_point_indexing_service(lonlat);
             var view = map.getView();
             var viewResolution = view.getResolution();
 
@@ -253,8 +383,8 @@ map.on('singleclick', function(evt) {
                   {'INFO_FORMAT': 'text/xml', 'FEATURE_COUNT': 50});
               };
 
-            var displayContent = '<table border="1"><tbody><tr><th>Gauge Type & ID</th><th>Waterbody</th><th>Info</th><th>Link</th></tr>';
-
+            //var displayContent = '<table border="1"><tbody><tr><th>Gauge Type & ID</th><th>Waterbody</th><th>Info</th><th>Link</th></tr>';
+            var displayContent = "COMID: " + comid;
             if (AHPS_url) {
                 var AHPS_Data = dataCall(AHPS_url);
                 var AHPS_Count = AHPS_Data.documentElement.childElementCount;
