@@ -19,11 +19,10 @@
           </div>
           <ol>
           <li class="modalList">Zoom to location</li>
-          <span class="sub">USGS Gauges are present in all states, except Alaska, and Puerto Rico. <br>
-              AHPS forecasts are available in every state and Puerto Rico. <br>
-              You can zoom to an area using the search box on the left. </span>
+          <span class="sub">USGS and AHPS Gauges are present in all US states and Puerto Rico.
+              You can zoom to a specific area using the search box on the left. </span>
           <li class="modalList">Select gauge of interest</li>
-          <span class="sub">USGS gauges are blue, AHPS forecast points are red. Layer display can be toggled in the
+          <span class="sub">USGS gauges are green, AHPS forecast points are red. Layer display can be toggled in the
               left side-bar.</span>
           <div class="modalNote">
             <span>
@@ -88,7 +87,7 @@
              id="ch_AHPS_Gauges" name="AHPS_Gauges" checked>AHPS Gauges (Red)
     <br>
     <input type="checkbox" onClick="USGS_Gauges.setVisible(!USGS_Gauges.getVisible());"
-             id="ch_USGS_Gauges" name="USGS_Gauges" checked>USGS Gauges (Blue)
+             id="ch_USGS_Gauges" name="USGS_Gauges" checked>USGS Gauges (Green)
     <br><br><br>
   <input type="text" class="form-control" placeholder="Enter Area of Interest" id="location_input" name="location_input"></li><br/>
   <input type="button" class="btn btn-primary" id="location_search" name="location_search" onClick="run_geocoder();" value="Click to zoom to area">

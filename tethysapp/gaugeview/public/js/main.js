@@ -2,6 +2,7 @@
 $(document).ready(function () {
     $("#welcome-popup").modal("show");
 });
+
 var comid;
 function dataCall(inputURL) {
     var result = null;
@@ -151,7 +152,7 @@ var AHPS_Source =  new ol.source.TileWMS({
 var USGS_Source =  new ol.source.TileWMS({
         url:'http://tethys.byu.edu:8181/geoserver/wms',
         params:{
-            LAYERS:"gaugeviewwml:USGS_Gauges",
+            LAYERS:"gaugeviewwml:Export_USGS0",
 //            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
         },
         crossOrigin: 'Anonymous'
@@ -172,7 +173,7 @@ var USGS_Gauges = new ol.layer.Tile({
 //USGS_Gauges.setOpacity(0.7);
 
 sources = [AHPS_Source,USGS_Source];
-layers = [baseLayer,AHPS_Gauges, USGS_Gauges, all_streams_layer, selected_streams_layer];
+layers = [baseLayer, all_streams_layer, selected_streams_layer, AHPS_Gauges, USGS_Gauges];
 
 //Establish the view area. Note the reprojection from lat long (EPSG:4326) to Web Mercator (EPSG:3857)
 var view = new ol.View({
@@ -434,9 +435,9 @@ map.on('singleclick', function(evt) {
 
                     var gaugeID = USGS_Data.documentElement.children[i].children[0].children[2].innerHTML;
                     var waterbody = USGS_Data.documentElement.children[i].children[0].children[3].innerHTML;
-                    var urlLink = USGS_Data.documentElement.children[i].children[0].children[8].innerHTML;
-                    var lat = USGS_Data.documentElement.children[i].children[0].children[5].innerHTML;
-                    var long = USGS_Data.documentElement.children[i].children[0].children[4].innerHTML;
+                    var urlLink = USGS_Data.documentElement.children[i].children[0].children[16].innerHTML;
+                    var lat = USGS_Data.documentElement.children[i].children[0].children[8].innerHTML;
+                    var long = USGS_Data.documentElement.children[i].children[0].children[9].innerHTML;
 
                     var usgshtml = "/apps/gaugeview/usgs/?gaugeid=" + gaugeID + "&waterbody=" + waterbody + "&start=" + two_weeks_ago_str + "&end=" + datestringnow + "&lat=" + lat + "&long=" + long + "&initial=True";
                     displayContent += '<tr><td>USGS:\n' + gaugeID +'</td><td>'+ waterbody + '</td><td><a href="'+usgshtml+'" target="_blank">View Data</a></td><td><a href="'+urlLink+'" target="_blank">Go to Website</a></td></tr>';

@@ -159,6 +159,15 @@ def check_digit(num):
         num_str = '0' + num_str
     return num_str
 
+def comid_set_time(time):
+    """
+    Check digits in month and day (i.e. 2016-05-09, not 2016-5-9)
+    :param num: input of number that is supposed to be two digits long
+    :return: returns a time format in hour:minute
+    """
+    time_comid = str(time)
+    new_time = time_comid + ':00'
+    return new_time
 
 def convert_usgs_iv_to_python(data):
     """
@@ -438,16 +447,16 @@ def ahps(request):
         flow += item[4]
         stage_data.append([item[1], item[2]])
         stage += item[2]
-    print flow_data
+    # print flow_data
     timezone_list = []
     if request.GET.get('initial'):
         flow_data = flow_data
-        timezone_initialize = 'UTC'
+        timezone_initialize = 'Coordianted Time'
     else:
         timezone = request.GET['timezone']
         if timezone == "UTC":
             flow_data = flow_data
-            timezone_initialize = 'UTC'
+            timezone_initialize = 'Coordianted Time'
         if timezone == "Hawaii":
             for instant in flow_data:
                 utc_date = instant[0]
@@ -625,7 +634,14 @@ def ahps(request):
         if request.GET.get('initial'):
             got_comid = True
             forecast_range = 'short_range'
-            comid_time = '00'
+            t_now = datetime.now()
+            t_hour = t_now.hour
+            if t_hour > 7:
+                t_minus_hour = t_hour - 5
+                comid_time = check_digit(t_minus_hour)
+            else:
+                comid_time = '00'
+            # comid_time = '00'
             forecast_date = now_str
             forecast_date_end = now_str
             forecast_range_initialize = 'Short'
@@ -676,12 +692,12 @@ def ahps(request):
             second = 00
             if request.GET.get('initial'):
                 minute_int = int(time_minute)
-                timezone_initialize = 'UTC'
+                timezone_initialize = 'Coordianted Time'
             else:
                 timezone = request.GET['timezone']
                 if timezone == "UTC":
                     minute_int = int(time_minute)
-                    timezone_initialize = 'UTC'
+                    timezone_initialize = 'Coordianted Time'
                 if timezone == "Hawaii":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Hawaii")
@@ -692,7 +708,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Hawaii'
+                    timezone_initialize = 'Hawaii Time'
                 if timezone == "Alaska":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Alaska")
@@ -703,7 +719,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Alaska'
+                    timezone_initialize = 'Alaska Time'
                 if timezone == "Pacific":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Pacific")
@@ -714,7 +730,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Pacific'
+                    timezone_initialize = 'Pacific Time'
                 if timezone == "Arizona":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Arizona")
@@ -725,7 +741,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Arizona'
+                    timezone_initialize = 'Arizona Time'
                 if timezone == "Mountain":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Mountain")
@@ -736,7 +752,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Mountain'
+                    timezone_initialize = 'Mountain Time'
                 if timezone == "Central":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Central")
@@ -747,7 +763,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Central'
+                    timezone_initialize = 'Central Time'
                 if timezone == "Eastern":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Eastern")
@@ -758,7 +774,7 @@ def ahps(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Eastern'
+                    timezone_initialize = 'Eastern Time'
             value = info[7].split('<')
             value1 = value[0].replace('>', '')
             value2 = float(value1)
@@ -855,8 +871,6 @@ def ahps(request):
         }]
     )
 
-    # comid_time += ':00'
-
     generate_graphs_button = Button(display_text='Update Graph',
                                     name='generate_graphs',
                                     attributes={""},
@@ -893,6 +907,8 @@ def ahps(request):
                                         initial=forecast_range_initialize,
                                         original=True)
 
+    comid_time = comid_set_time(comid_time)
+
     forecast_time_select = SelectInput(display_text='Start Time (UTC)',
                                        name='comid_time',
                                        multiple=False,
@@ -911,7 +927,8 @@ def ahps(request):
                                   options=[('Coordianted Time', 'UTC'),
                                            ('Hawaii Time', 'Hawaii'),
                                            ('Alaska Time', 'Alaska'),
-                                           ('Pacfic Time', 'Pacific'),
+                                           ('Pacific Time', 'Pacific'),
+                                           ('Arizona Time', 'Arizona'),
                                            ('Mountain Time', 'Mountain'),
                                            ('Central Time', 'Central'),
                                            ('Eastern Time', 'Eastern')],
@@ -952,7 +969,7 @@ def usgs(request):
     comid_time = "06"
     got_comid = False
     failed = False
-    timezone_initialize = 'UTC'
+    timezone_initialize = 'Coordianted Time'
 
     # Get Closest COMID to gauge
     # comid_filler = str(json.loads(urllib2.urlopen('https://ofmpub.epa.gov/waters10/PointIndexing.Service?pGeometry=POINT(' + long + '+' + lat + ')').read())['output']['ary_flowlines'][0]['comid'])
@@ -971,12 +988,12 @@ def usgs(request):
     timezone_list = []
     if request.GET.get('initial'):
         inst_time_series_list = inst_time_series_list
-        timezone_initialize = 'UTC'
+        timezone_initialize = 'Coordianted Time'
     else:
         timezone = request.GET['timezone']
         if timezone == "UTC":
             inst_time_series_list = inst_time_series_list
-            timezone_initialize = 'UTC'
+            timezone_initialize = 'Coordianted Time'
         if timezone == "Hawaii":
             for instant in inst_time_series_list:
                 utc_date = instant[0]
@@ -996,7 +1013,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Hawaii'
+                timezone_initialize = 'Hawaii Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Alaska":
@@ -1018,7 +1035,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Alaska'
+                timezone_initialize = 'Alaska Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Pacific":
@@ -1040,7 +1057,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Pacific'
+                timezone_initialize = 'Pacific Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Arizona":
@@ -1062,7 +1079,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Arizona'
+                timezone_initialize = 'Arizona Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Mountain":
@@ -1084,7 +1101,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Mountain'
+                timezone_initialize = 'Mountain Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Central":
@@ -1106,7 +1123,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Central'
+                timezone_initialize = 'Central Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
         if timezone == "Eastern":
@@ -1128,7 +1145,7 @@ def usgs(request):
                 minute = tz_time.minute
                 hour_int = int(hour)
                 minute_int = int(minute)
-                timezone_initialize = 'Eastern'
+                timezone_initialize = 'Eastern Time'
                 timezone_list.append([datetime(year, month, day, hour_int, minute_int), utc_flow])
             inst_time_series_list = timezone_list
 
@@ -1146,7 +1163,14 @@ def usgs(request):
         if request.GET.get('initial'):
             got_comid = True
             forecast_range = 'short_range'
-            comid_time = '00'
+            t_now = datetime.now()
+            t_hour = t_now.hour
+            if t_hour > 7:
+                t_minus_hour = t_hour - 5
+                comid_time = check_digit(t_minus_hour)
+            else:
+                comid_time = '00'
+            # comid_time = '00'
             forecast_date= end
             forecast_date_end = end
             forecast_range_initialize = 'Short'
@@ -1196,12 +1220,12 @@ def usgs(request):
             minute_int = int(time_minute)
             if request.GET.get('initial'):
                 minute_int = int(time_minute)
-                timezone_initialize = 'UTC'
+                timezone_initialize = 'Coordianted Time'
             else:
                 timezone = request.GET['timezone']
                 if timezone == "UTC":
                     minute_int = int(time_minute)
-                    timezone_initialize = 'UTC'
+                    timezone_initialize = 'Coordianted Time'
                 if timezone == "Hawaii":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Hawaii")
@@ -1212,7 +1236,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Hawaii'
+                    timezone_initialize = 'Hawaii Time'
                 if timezone == "Alaska":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Alaska")
@@ -1223,7 +1247,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Alaska'
+                    timezone_initialize = 'Alaska Time'
                 if timezone == "Pacific":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Pacific")
@@ -1234,7 +1258,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Pacific'
+                    timezone_initialize = 'Pacific Time'
                 if timezone == "Arizona":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Arizona")
@@ -1245,7 +1269,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Arizona'
+                    timezone_initialize = 'Arizona Time'
                 if timezone == "Mountain":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Mountain")
@@ -1256,7 +1280,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Mountain'
+                    timezone_initialize = 'Mountain Time'
                 if timezone == "Central":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Central")
@@ -1267,7 +1291,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Central'
+                    timezone_initialize = 'Central Time'
                 if timezone == "Eastern":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Eastern")
@@ -1278,7 +1302,7 @@ def usgs(request):
                     minute = tz_time.minute
                     hour_int = int(hour)
                     minute_int = int(minute)
-                    timezone_initialize = 'Eastern'
+                    timezone_initialize = 'Eastern Time'
             value = info[7].split('<')
             value1 = value[0].replace('>', '')
             value2 = float(value1)
@@ -1379,8 +1403,6 @@ def usgs(request):
         }]
     )
 
-    comid_time += ':00'
-
     # Gizmos
     usgs_start_date_picker = DatePicker(name='start',
                                         display_text='Start Date',
@@ -1434,6 +1456,8 @@ def usgs(request):
                                         initial=forecast_range_initialize,
                                         original=True)
 
+    comid_time = comid_set_time(comid_time)
+
     forecast_time_select = SelectInput(display_text='Start Time (UTC)',
                                        name='comid_time',
                                        multiple=False,
@@ -1452,7 +1476,8 @@ def usgs(request):
                                         options=[('Coordianted Time', 'UTC'),
                                                  ('Hawaii Time', 'Hawaii'),
                                                  ('Alaska Time', 'Alaska'),
-                                                 ('Pacfic Time', 'Pacific'),
+                                                 ('Pacific Time', 'Pacific'),
+                                                 ('Arizona Time', 'Arizona'),
                                                  ('Mountain Time', 'Mountain'),
                                                  ('Central Time', 'Central'),
                                                  ('Eastern Time', 'Eastern')],

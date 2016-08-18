@@ -7,7 +7,7 @@ class GaugeviewerWml(TethysAppBase):
     """
     name = 'USGS and AHPS Gaugeviewer WML'
     index = 'gaugeview:home'
-    icon = 'gaugeview/images/icon.gif'
+    icon = 'gaugeview/images/gauge_icon.png'
     package = 'gaugeview'
     root_url = 'gaugeview'
     color = '#e67e22'
