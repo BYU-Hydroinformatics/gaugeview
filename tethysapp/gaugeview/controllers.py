@@ -637,7 +637,7 @@ def ahps(request):
             t_now = datetime.now()
             t_hour = t_now.hour
             if t_hour > 7:
-                t_minus_hour = t_hour - 5
+                t_minus_hour = t_hour - 7
                 comid_time = check_digit(t_minus_hour)
             else:
                 comid_time = '00'
@@ -1166,7 +1166,7 @@ def usgs(request):
             t_now = datetime.now()
             t_hour = t_now.hour
             if t_hour > 7:
-                t_minus_hour = t_hour - 5
+                t_minus_hour = t_hour - 7
                 comid_time = check_digit(t_minus_hour)
             else:
                 comid_time = '00'
