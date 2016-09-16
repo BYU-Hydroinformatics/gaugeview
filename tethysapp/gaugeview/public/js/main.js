@@ -43,23 +43,23 @@ var baseLayer = new ol.layer.Tile({
 
 //Define all WMS Sources:
 
-//var AHPS_Source =  new ol.source.TileWMS({
-//        url:'http://geoserver.byu.edu/arcgis/services/NWC/AHPS_Gauges/MapServer/WmsServer?',
-//        params:{
-//            LAYERS:"0",
-////            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
-//        },
-//        crossOrigin: 'Anonymous' //This is necessary for CORS security in the browser
-//        });
-//
-//var USGS_Source =  new ol.source.TileWMS({
-//        url:'http://geoserver.byu.edu/arcgis/services/NWC/USGS_Gauges/MapServer/WmsServer?',
-//        params:{
-//            LAYERS:"0",
-////            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
-//        },
-//        crossOrigin: 'Anonymous'
-//        });
+var AHPS_Source =  new ol.source.TileWMS({
+        url:'https://geoserver.byu.edu/arcgis/services/NWC/AHPS_Gauges/MapServer/WmsServer?',
+        params:{
+            LAYERS:"0",
+//            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
+        },
+        crossOrigin: 'Anonymous' //This is necessary for CORS security in the browser
+        });
+
+var USGS_Source =  new ol.source.TileWMS({
+        url:'https://geoserver.byu.edu/arcgis/services/NWC/USGS_Gauges/MapServer/WmsServer?',
+        params:{
+            LAYERS:"0",
+//            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
+        },
+        crossOrigin: 'Anonymous'
+        });
 
 // Highlight selected stream
     var createLineStyleFunction = function() {
@@ -137,22 +137,38 @@ all_streams_layer = new ol.layer.Vector({
         maxResolution: 100
     });
 
-//map.addLayer(all_streams_layer);
+////map.addLayer(all_streams_layer);
+//var AHPS_Source =  new ol.source.TileWMS({
+//        url:'http://tethys.byu.edu:8181/geoserver/wms',
+//        params:{
+//            LAYERS:"gaugeviewwml:AHPS_Gauges",
+////            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
+//        },
+//        crossOrigin: 'Anonymous' //This is necessary for CORS security in the browser
+//        });
+//
+//var USGS_Source =  new ol.source.TileWMS({
+//        url:'http://tethys.byu.edu:8181/geoserver/wms',
+//        params:{
+//            LAYERS:"gaugeviewwml:Export_USGS0",
+////            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
+//        },
+//        crossOrigin: 'Anonymous'
+//        });
 
-//Define Gauge Sources
 var AHPS_Source =  new ol.source.TileWMS({
-        url:'http://tethys.byu.edu:8181/geoserver/wms',
+        url:'https://geoserver.byu.edu/arcgis/services/gaugeviewer/AHPS_gauges/MapServer/WmsServer?',
         params:{
-            LAYERS:"gaugeviewwml:AHPS_Gauges",
+            LAYERS:"0",
 //            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
         },
         crossOrigin: 'Anonymous' //This is necessary for CORS security in the browser
         });
 
 var USGS_Source =  new ol.source.TileWMS({
-        url:'http://tethys.byu.edu:8181/geoserver/wms',
+        url:'https://geoserver.byu.edu/arcgis/services/gaugeviewer/USGS_gauges/MapServer/WmsServer?',
         params:{
-            LAYERS:"gaugeviewwml:Export_USGS0",
+            LAYERS:"0",
 //            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
         },
         crossOrigin: 'Anonymous'
@@ -390,19 +406,19 @@ map.on('singleclick', function(evt) {
                 var AHPS_Data = dataCall(AHPS_url);
                 var AHPS_Count = AHPS_Data.documentElement.childElementCount;
 
-                //This is for AHPS Gauges
-                for (i = 1; i < AHPS_Count; i++) {
-//                    var gaugeID = AHPS_Data.documentElement.children[i].attributes['GaugeLID'].value;
-//                    var waterbody = AHPS_Data.documentElement.children[i].attributes['Waterbody'].value;
-//                    var urlLink = AHPS_Data.documentElement.children[i].attributes['URL'].value;
-//                    var lat = AHPS_Data.documentElement.children[i].attributes['Latitude'].value;
-//                    var long = AHPS_Data.documentElement.children[i].attributes['Longitude'].value;
+                //This is for AHPS Gauges (set i=0 if using geoserver.byu.edu, set i=1 if using tethys.byu.edu's geoserver)
+                for (i = 0; i < AHPS_Count; i++) {
+                    var gaugeID = AHPS_Data.documentElement.children[i].attributes['GaugeLID'].value;
+                    var waterbody = AHPS_Data.documentElement.children[i].attributes['Waterbody'].value;
+                    var urlLink = AHPS_Data.documentElement.children[i].attributes['URL'].value;
+                    var lat = AHPS_Data.documentElement.children[i].attributes['Latitude'].value;
+                    var long = AHPS_Data.documentElement.children[i].attributes['Longitude'].value;
 
-                    var gaugeID = AHPS_Data.documentElement.children[i].children[0].children[1].innerHTML;
-                    var waterbody = AHPS_Data.documentElement.children[i].children[0].children[5].innerHTML;
-                    var urlLink = AHPS_Data.documentElement.children[i].children[0].children[8].innerHTML;
-                    var lat = AHPS_Data.documentElement.children[i].children[0].children[3].innerHTML;
-                    var long = AHPS_Data.documentElement.children[i].children[0].children[4].innerHTML;
+//                    var gaugeID = AHPS_Data.documentElement.children[i].children[0].children[1].innerHTML;
+//                    var waterbody = AHPS_Data.documentElement.children[i].children[0].children[5].innerHTML;
+//                    var urlLink = AHPS_Data.documentElement.children[i].children[0].children[8].innerHTML;
+//                    var lat = AHPS_Data.documentElement.children[i].children[0].children[3].innerHTML;
+//                    var long = AHPS_Data.documentElement.children[i].children[0].children[4].innerHTML;
 
                     var ahpshtml = "/apps/gaugeview/ahps/?gaugeno=" + gaugeID + "&waterbody=" + waterbody + "&lat=" + lat + "&long=" + long + "&initial=True";
                     displayContent += '<tr><td>AHPS:\n' + gaugeID + '</td><td>' + waterbody + '</td><td><a href="'+ahpshtml+'" target="_blank">View Data</a></td><td><a href="'+urlLink+'" target="_blank">Go to Website</a></td></tr>';
@@ -425,19 +441,25 @@ map.on('singleclick', function(evt) {
 
                 //console.log(date_old)
 
-                //This is for USGS Gauges
-                for (i = 1; i < USGS_Count; i++) {
+                //This is for USGS Gauges (set i=0 if using geoserver.byu.edu, set i=1 if using tethys.byu.edu's geoserver)
+                for (i = 0; i < USGS_Count; i++) {
+                    var gaugeID = USGS_Data.documentElement.children[i].attributes['STAID'].value;
+                    var waterbody = USGS_Data.documentElement.children[i].attributes['STANAME'].value;
+                    var urlLink = USGS_Data.documentElement.children[i].attributes['NWISWEB'].value;
+                    var lat = USGS_Data.documentElement.children[i].attributes['LAT_GAGE'].value;
+                    var long = USGS_Data.documentElement.children[i].attributes['LNG_GAGE'].value;
+
 //                    var gaugeID = USGS_Data.documentElement.children[i].attributes['SITE_NO'].value;
 //                    var waterbody = USGS_Data.documentElement.children[i].attributes['STATION_NM'].value;
 //                    var urlLink = USGS_Data.documentElement.children[i].attributes['NWISWEB'].value;
 //                    var lat = USGS_Data.documentElement.children[i].attributes['LAT_SITE'].value;
 //                    var long = USGS_Data.documentElement.children[i].attributes['LON_SITE'].value;
 
-                    var gaugeID = USGS_Data.documentElement.children[i].children[0].children[2].innerHTML;
-                    var waterbody = USGS_Data.documentElement.children[i].children[0].children[3].innerHTML;
-                    var urlLink = USGS_Data.documentElement.children[i].children[0].children[16].innerHTML;
-                    var lat = USGS_Data.documentElement.children[i].children[0].children[8].innerHTML;
-                    var long = USGS_Data.documentElement.children[i].children[0].children[9].innerHTML;
+//                    var gaugeID = USGS_Data.documentElement.children[i].children[0].children[2].innerHTML;
+//                    var waterbody = USGS_Data.documentElement.children[i].children[0].children[3].innerHTML;
+//                    var urlLink = USGS_Data.documentElement.children[i].children[0].children[16].innerHTML;
+//                    var lat = USGS_Data.documentElement.children[i].children[0].children[8].innerHTML;
+//                    var long = USGS_Data.documentElement.children[i].children[0].children[9].innerHTML;
 
                     var usgshtml = "/apps/gaugeview/usgs/?gaugeid=" + gaugeID + "&waterbody=" + waterbody + "&start=" + two_weeks_ago_str + "&end=" + datestringnow + "&lat=" + lat + "&long=" + long + "&initial=True";
                     displayContent += '<tr><td>USGS:\n' + gaugeID +'</td><td>'+ waterbody + '</td><td><a href="'+usgshtml+'" target="_blank">View Data</a></td><td><a href="'+urlLink+'" target="_blank">Go to Website</a></td></tr>';
