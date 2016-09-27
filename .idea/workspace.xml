@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8ccb3319-80f0-41a5-b549-463347d3e28d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/gaugeview/controllers.py" afterPath="$PROJECT_DIR$/tethysapp/gaugeview/controllers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/gaugeview/public/js/main.js" afterPath="$PROJECT_DIR$/tethysapp/gaugeview/public/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html" afterPath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html" afterPath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html" afterPath="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html" />
     </list>
     <ignored path="tethysapp-gaugeview.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,51 +30,31 @@
       <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/controllers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="743">
-              <caret line="1313" column="0" selection-start-line="1313" selection-start-column="0" selection-end-line="1313" selection-end-column="0" />
+            <state relative-caret-position="277">
+              <caret line="931" column="69" selection-start-line="931" selection-start-column="69" selection-end-line="931" selection-end-column="69" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
-                <element signature="e#31879#31921#0" expanded="false" />
+                <element signature="e#31986#32028#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="408" column="123" selection-start-line="408" selection-start-column="123" selection-end-line="408" selection-end-column="123" />
+            <state relative-caret-position="607">
+              <caret line="515" column="17" selection-start-line="515" selection-start-column="4" selection-end-line="515" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="usgs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/usgs.js">
+      <file leaf-file-name="ahps.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="66" selection-start-line="0" selection-start-column="65" selection-end-line="0" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ahps.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/ahps.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ol.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/ol.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14280">
-              <caret line="952" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="989" selection-end-column="4" />
+            <state relative-caret-position="299">
+              <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -81,48 +63,8 @@
       <file leaf-file-name="usgs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ol.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/css/ol.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="3604" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="3719" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="103">
+              <caret line="205" column="25" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -152,23 +94,23 @@
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/js/ol.js" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/js/usgs.js" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/vendor/export-csv.js" />
-        <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html" />
-        <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/js/streams.js" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/vendor/WATERS/WATERSServices-1.0.0-min.js" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/app.py" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html" />
-        <option value="$PROJECT_DIR$/tethysapp/gaugeview/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/gaugeview/public/js/main.js" />
+        <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html" />
+        <option value="$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html" />
+        <option value="$PROJECT_DIR$/tethysapp/gaugeview/controllers.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1375" />
-    <option name="height" value="904" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -195,6 +137,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -403,12 +346,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tethysapp-nwm_forecasts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tethysapp-floodmap" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RunManager">
@@ -564,7 +506,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1375" height="904" extended-state="6" />
+    <frame x="65" y="24" width="1375" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945454" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -608,7 +550,7 @@
           <caret line="471" column="21" selection-start-line="471" selection-start-column="21" selection-end-line="471" selection-end-column="21" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -672,7 +614,7 @@
           <caret line="471" column="21" selection-start-line="471" selection-start-column="21" selection-end-line="471" selection-end-column="21" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -736,7 +678,7 @@
           <caret line="471" column="21" selection-start-line="471" selection-start-column="21" selection-end-line="471" selection-end-column="21" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -770,7 +712,7 @@
           <caret line="461" column="28" selection-start-line="461" selection-start-column="28" selection-end-line="461" selection-end-column="28" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -804,7 +746,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -838,7 +780,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
+            <element signature="e#31986#32028#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -897,13 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/streams.js" />
     <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/vendor/WATERS/WATERSServices-1.0.0-min.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -927,42 +862,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/css/ol.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3604" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="3719" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/usgs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="66" selection-start-line="0" selection-start-column="65" selection-end-line="0" selection-end-column="66" />
           <folding />
         </state>
       </provider>
@@ -983,21 +886,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/controllers.py">
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="743">
-          <caret line="1313" column="0" selection-start-line="1313" selection-start-column="0" selection-end-line="1313" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-            <element signature="e#31879#31921#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="420">
+          <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/css/ol.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="3604" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="3719" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/usgs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="66" selection-start-line="0" selection-start-column="65" selection-end-line="0" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="408" column="123" selection-start-line="408" selection-start-column="123" selection-end-line="408" selection-end-column="123" />
+        <state relative-caret-position="607">
+          <caret line="515" column="17" selection-start-line="515" selection-start-column="4" selection-end-line="515" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/usgs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="205" column="25" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/controllers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="931" column="69" selection-start-line="931" selection-start-column="69" selection-end-line="931" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+            <element signature="e#31986#32028#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gaugeview/templates/gaugeview/ahps.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
           <folding />
         </state>
       </provider>

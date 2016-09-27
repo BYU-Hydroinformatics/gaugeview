@@ -425,6 +425,9 @@ def ahps(request):
     got_comid = False
     comid = None
     failed = False
+    timezone = request.GET.get('timezone', None)
+    if timezone is None:
+        timezone = 'Coordinated'
 
     # Get AHPS data using a dedicated function
     data = get_ahps_data(gauge_id)  # data will be in a string, but is an xml document
@@ -451,12 +454,12 @@ def ahps(request):
     timezone_list = []
     if request.GET.get('initial'):
         flow_data = flow_data
-        timezone_initialize = 'Coordianted Time'
+        timezone_initialize = 'Coordinated Time'
     else:
         timezone = request.GET['timezone']
         if timezone == "UTC":
             flow_data = flow_data
-            timezone_initialize = 'Coordianted Time'
+            timezone_initialize = 'Coordinated Time'
         if timezone == "Hawaii":
             for instant in flow_data:
                 utc_date = instant[0]
@@ -692,12 +695,12 @@ def ahps(request):
             second = 00
             if request.GET.get('initial'):
                 minute_int = int(time_minute)
-                timezone_initialize = 'Coordianted Time'
+                timezone_initialize = 'Coordinated Time'
             else:
                 timezone = request.GET['timezone']
                 if timezone == "UTC":
                     minute_int = int(time_minute)
-                    timezone_initialize = 'Coordianted Time'
+                    timezone_initialize = 'Coordinated Time'
                 if timezone == "Hawaii":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Hawaii")
@@ -924,7 +927,7 @@ def ahps(request):
     timezone_select = SelectInput(display_text='Timezone',
                                   name='timezone',
                                   multiple=False,
-                                  options=[('Coordianted Time', 'UTC'),
+                                  options=[('Coordinated Time', 'UTC'),
                                            ('Hawaii Time', 'Hawaii'),
                                            ('Alaska Time', 'Alaska'),
                                            ('Pacific Time', 'Pacific'),
@@ -941,7 +944,7 @@ def ahps(request):
                 "generate_graphs_button": generate_graphs_button, "comid_input": comid_input,
                 "forecast_date_picker": forecast_date_picker, "forecast_date_end_picker": forecast_date_end_picker,
                 "forecast_range_select": forecast_range_select, "forecast_time_select": forecast_time_select,
-                "comid": comid, "gotComid": got_comid, "forecast_failed": failed, "timezone_select": timezone_select}
+                "comid": comid, "gotComid": got_comid, "forecast_failed": failed, "timezone_select": timezone_select, "timezone": timezone}
 
     return render(request, 'gaugeview/ahps.html', context)
 
@@ -969,7 +972,10 @@ def usgs(request):
     comid_time = "06"
     got_comid = False
     failed = False
-    timezone_initialize = 'Coordianted Time'
+    timezone_initialize = 'Coordinated Time'
+    timezone = request.GET.get('timezone', None)
+    if timezone is None:
+        timezone = 'Coordinated'
 
     # Get Closest COMID to gauge
     # comid_filler = str(json.loads(urllib2.urlopen('https://ofmpub.epa.gov/waters10/PointIndexing.Service?pGeometry=POINT(' + long + '+' + lat + ')').read())['output']['ary_flowlines'][0]['comid'])
@@ -988,12 +994,12 @@ def usgs(request):
     timezone_list = []
     if request.GET.get('initial'):
         inst_time_series_list = inst_time_series_list
-        timezone_initialize = 'Coordianted Time'
+        timezone_initialize = 'Coordinated Time'
     else:
         timezone = request.GET['timezone']
         if timezone == "UTC":
             inst_time_series_list = inst_time_series_list
-            timezone_initialize = 'Coordianted Time'
+            timezone_initialize = 'Coordinated Time'
         if timezone == "Hawaii":
             for instant in inst_time_series_list:
                 utc_date = instant[0]
@@ -1220,12 +1226,12 @@ def usgs(request):
             minute_int = int(time_minute)
             if request.GET.get('initial'):
                 minute_int = int(time_minute)
-                timezone_initialize = 'Coordianted Time'
+                timezone_initialize = 'Coordinated Time'
             else:
                 timezone = request.GET['timezone']
                 if timezone == "UTC":
                     minute_int = int(time_minute)
-                    timezone_initialize = 'Coordianted Time'
+                    timezone_initialize = 'Coordinated Time'
                 if timezone == "Hawaii":
                     utc_datetime = "{0}-{1}-{2} {3}:{4}:{5}".format(year, month, day, hour_int, minute_int, second)
                     tz_time = utc2custom(utc_datetime, "US/Hawaii")
@@ -1473,7 +1479,7 @@ def usgs(request):
     timezone_select = SelectInput(display_text='Timezone',
                                         name='timezone',
                                         multiple=False,
-                                        options=[('Coordianted Time', 'UTC'),
+                                        options=[('Coordinated Time', 'UTC'),
                                                  ('Hawaii Time', 'Hawaii'),
                                                  ('Alaska Time', 'Alaska'),
                                                  ('Pacific Time', 'Pacific'),
@@ -1491,7 +1497,7 @@ def usgs(request):
                "comid_input": comid_input, "forecast_date_picker": forecast_date_picker,
                "forecast_date_end_picker": forecast_date_end_picker, "forecast_range_select": forecast_range_select,
                "forecast_time_select": forecast_time_select, "forecast_range": forecast_range, "comid": comid,
-               "gotComid": got_comid, "forecast_failed": failed, "timezone_select": timezone_select}
+               "gotComid": got_comid, "forecast_failed": failed, "timezone_select": timezone_select, "timezone": timezone}
 
     return render(request, 'gaugeview/usgs.html', context)
 

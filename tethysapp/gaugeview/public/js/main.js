@@ -43,24 +43,6 @@ var baseLayer = new ol.layer.Tile({
 
 //Define all WMS Sources:
 
-var AHPS_Source =  new ol.source.TileWMS({
-        url:'https://geoserver.byu.edu/arcgis/services/NWC/AHPS_Gauges/MapServer/WmsServer?',
-        params:{
-            LAYERS:"0",
-//            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
-        },
-        crossOrigin: 'Anonymous' //This is necessary for CORS security in the browser
-        });
-
-var USGS_Source =  new ol.source.TileWMS({
-        url:'https://geoserver.byu.edu/arcgis/services/NWC/USGS_Gauges/MapServer/WmsServer?',
-        params:{
-            LAYERS:"0",
-//            FORMAT:"image/png", //Not a necessary line, but maybe useful if needed later
-        },
-        crossOrigin: 'Anonymous'
-        });
-
 // Highlight selected stream
     var createLineStyleFunction = function() {
         return function(feature, resolution) {
@@ -520,3 +502,17 @@ if (window.location.pathname == '/apps/gaugeview/') {
         }
     });
     }
+
+if (window.location.search.includes('timezone')) {
+    var query = window.location.search.split("&");
+
+    var qTimezone = query[11].substring(query[11].lastIndexOf());
+    console.log(qTimezone);
+    timezone = qTimezone.split('=');
+    timezone_name = timezone[1];
+//    console.log(timezone_name);
+}
+else {
+    timezone_name = 'Coordinated Time';
+//    console.log(timezone_name);
+}
