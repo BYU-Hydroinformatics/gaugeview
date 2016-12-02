@@ -1687,6 +1687,7 @@ def upload_to_hydroshare(request):
                     hs.setAccessRules(res_id, public=True)
                 return_json['success'] = 'File uploaded successfully!'
                 return_json['newResource'] = res_id
+                return_json['hs_hostname'] = hs.hostname
             else:
                 raise
 
