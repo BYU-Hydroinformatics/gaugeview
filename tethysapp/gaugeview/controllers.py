@@ -1,30 +1,29 @@
+import os
+import shutil
+import json
+import traceback
+import urllib2
+from urllib2 import HTTPError
+import logging
+import xml.etree.ElementTree as ElTree
+from dateutil import tz
+
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from datetime import datetime, timedelta
-import urllib2
-from urllib2 import HTTPError
+from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+
+from oauthlib.oauth2 import TokenExpiredError
+from hs_restclient import HydroShare, HydroShareAuthOAuth2
+
 from tethys_sdk.gizmos import TimeSeries
-import xml.etree.ElementTree as ElTree
 from tethys_sdk.gizmos import DatePicker
 from tethys_sdk.gizmos import Button
 from tethys_sdk.gizmos import TextInput
 from tethys_sdk.gizmos import SelectInput
-import os
-import shutil
-import json
-import urllib
-import tempfile
-import traceback
-from django.http import JsonResponse
-from hs_restclient import HydroShare, HydroShareAuthBasic
-from oauthlib.oauth2 import TokenExpiredError
-from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthorized, HydroShareNotFound
-from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings
-import pytz
-from dateutil import tz
-import logging
 
 logger = logging.getLogger(__name__)
 try:
@@ -1645,7 +1644,7 @@ def getOAuthHS(request):
 @login_required()
 def upload_to_hydroshare(request):
 
-    # print "running upload_to_hydroshare!"
+    logger.debug("running upload_to_hydroshare!")
     temp_dir = None
     try:
         return_json = {}
@@ -1675,7 +1674,7 @@ def upload_to_hydroshare(request):
             ref_type = "rest"
             metadata = []
             metadata.append({"referenceurl": {"value": waterml_url, "type": ref_type}})
-            # print metadata
+            logger.debug(metadata)
             res_id = hs.createResource(r_type,
                                        r_title,
                                        resource_file=None,
@@ -1692,13 +1691,14 @@ def upload_to_hydroshare(request):
                 raise
 
     except ObjectDoesNotExist as e:
-        # print ("ObjectDoesNotExist")
-        # print str(e)
+        logger.error ("ObjectDoesNotExist")
+        logger.exception(e.message)
         return_json['error'] = 'Login timed out! Please re-sign in with your HydroShare account.'
     except TokenExpiredError as e:
-        # print str(e)
+        logger.exception(e.message)
         return_json['error'] = 'Login timed out! Please re-sign in with your HydroShare account.'
     except Exception, err:
+        logger.exception(err.message)
         if "401 Unauthorized" in str(err):
             return_json['error'] = 'Username or password invalid.'
         elif "400 Bad Request" in str(err):
@@ -1744,7 +1744,7 @@ def utc2custom(utc_time_str, target_tzone_name):
     to_zone = tz.gettz(target_tzone_name)
 
     utc = datetime.strptime(utc_time_str, '%Y-%m-%d %H:%M:%S')
-    # print utc
+    logger.debug(utc)
     # Tell the datetime object that it's in UTC time zone since
     # datetime objects are 'naive' by default
     utc = utc.replace(tzinfo=from_zone)
