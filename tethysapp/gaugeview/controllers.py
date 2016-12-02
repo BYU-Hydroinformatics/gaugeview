@@ -24,6 +24,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import pytz
 from dateutil import tz
+import logging
+
+logger = logging.getLogger(__name__)
+try:
+    from tethys_services.backends.hs_restclient_helper import get_oauth_hs
+except ImportError:
+    logger.error("could not load: tethys_services.backends.hs_restclient_helper import get_oauth_hs")
 
 
 hs_hostname = "www.hydroshare.org"
@@ -1651,6 +1658,7 @@ def upload_to_hydroshare(request):
                 front_end = 'http://'
 
             waterml_url = front_end + request.get_host() + post_data['waterml_link']
+            logger.debug(waterml_url)
 
             r_title = post_data['title']
             r_abstract = post_data['abstract']
@@ -1661,7 +1669,8 @@ def upload_to_hydroshare(request):
             r_public = post_data['public']
 
             res_id = None
-            hs = getOAuthHS(request)
+            # hs = getOAuthHS(request)
+            hs = get_oauth_hs(request)
 
             ref_type = "rest"
             metadata = []
