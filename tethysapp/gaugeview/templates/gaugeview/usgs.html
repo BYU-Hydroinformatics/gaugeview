@@ -35,7 +35,7 @@
     <br>
     {% if 'false' in got_dv_data|lower %}
     <br>
-        <a target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsiv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}" class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br>
+        <a target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsiv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}" class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br>
     {% endif %}
         {% else %}
    There is no instantaneous flow data available for this time period.<br><br>
@@ -48,7 +48,7 @@
     <br>
     {% if 'false' in got_inst_data|lower %}
     <br>
-    <a target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsdv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}%26lat%3D{{lat}}%26long%3D{{long}}"
+    <a target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsdv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}%26lat%3D{{lat}}%26long%3D{{long}}"
            class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br>
     {% endif %}
         {% else %}
@@ -58,7 +58,7 @@
 
     {% if 'true' in got_inst_data|lower %}
     {% if 'true' in got_dv_data|lower %}
-    <a target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsdv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}%26lat%3D{{lat}}%26long%3D{{long}},https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsiv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}"
+    <a target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsdv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}%26lat%3D{{lat}}%26long%3D{{long}},https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dusgsiv%26gaugeid%3D{{gaugeid}}%26start%3D{{start}}%26end%3D{{end}}"
            class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br>
     {% endif %}
     {% endif %}
@@ -121,7 +121,7 @@
               Viewer includes several analysis tools, and shows associated metadata.</span>
           <div class="modalNote">
             <span>
-              Note: You must currently be logged into Hydroshare, and have authorized appsdev.hydroshare.org/apps in order
+              Note: You must currently be logged into Hydroshare, and have authorized apps.hydroshare.org/apps in order
                 to use this feature. (Login will not be required in a future update to the Time Series Viewer app)
             </span>
           </div>

@@ -39,7 +39,7 @@
         <a name="btnUploadflow" class="btn btn-default" id="btnUploadflow" data-toggle="modal" data-target="#hydroshare-modal" role="button"><span class="glyphicon hydroshare" aria-hidden="true"></span>Upload to HydroShare</a>
 <br><br>
         {% if 'false' in gotdata_stage|lower %}
-        <a id="AHPS_CUASHI_tsv_Flow-link" target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
+        <a id="AHPS_CUASHI_tsv_Flow-link" target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
 https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%26var%3Dflow%26gaugeid%3D{{gaugeno}}%26lat%3D{{lat}}%26long%3D{{long}}"
            class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br><br>
         {% endif %}
@@ -54,7 +54,7 @@ https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%
         <a name="btnUploadstage" class="btn btn-default" id="btnUploadstage" data-toggle="modal" data-target="#hydroshare-modal" role="button"><span class="glyphicon hydroshare" aria-hidden="true"></span>Upload to HydroShare</a>
 <br><br>
         {% if 'false' in gotdata_flow|lower %}
-        <a id="AHPS_CUASHI_tsv_Stage-link" target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
+        <a id="AHPS_CUASHI_tsv_Stage-link" target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
 https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%26var%3Dstage%26gaugeid%3D{{gaugeno}}%26lat%3D{{lat}}%26long%3D{{long}}"
            class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br><br>
         {% endif %}
@@ -65,7 +65,7 @@ https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%
         {% if 'true' in gotdata_flow|lower %}
         {% if 'true' in gotdata_stage|lower %}
         <br><br>
-        <a id="AHPS_CUASHI_tsv-link" target="_blank" href="https://appsdev.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
+        <a id="AHPS_CUASHI_tsv-link" target="_blank" href="https://apps.hydroshare.org/apps/timeseries-viewer/?src=xmlrest&res_id=
 https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%26var%3Dstage%26gaugeid%3D{{gaugeno}}%26lat%3D{{lat}}%26long%3D{{long}},
 https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%26var%3Dflow%26gaugeid%3D{{gaugeno}}%26lat%3D{{lat}}%26long%3D{{long}}"
            class="btn btn-default btn-sm">Launch with CUASHI Time Series Viewer</a><br><br><br>
@@ -118,7 +118,7 @@ https%3A%2F%2Fapps.hydroshare.org%2Fapps%2Fgaugeview%2Fwaterml%2F%3Ftype%3Dahps%
               Series Viewer includes several analysis tools, and shows associated metadata.</span>
           <div class="modalNote">
             <span>
-              You must currently be logged into Hydroshare, and have authorized appsdev.hydroshare.org/apps in order
+              You must currently be logged into Hydroshare, and have authorized apps.hydroshare.org/apps in order
                 to use this feature. (Login will not be required in a future update to the Time Series Viewer app)
             </span>
           </div>
